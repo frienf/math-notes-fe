@@ -1,142 +1,189 @@
-Math Notes Frontend
-frienf-math-notes-fe is a React-based frontend application for drawing mathematical expressions on a canvas, processing them via a backend API, and rendering the results as LaTeX using MathJax. It features a draggable and resizable canvas, color swatches, undo/redo functionality, a calculation history panel, and a responsive UI built with Tailwind CSS and Mantine components.
-Features
+# 🧜‍♂️ frienf-math-notes-fe
 
-Canvas Drawing: Draw mathematical expressions freehand with customizable colors.
-Eraser Tool: Erase parts of the canvas by drawing over them with the eraser mode.
-Canvas Manipulation: Drag (Shift + drag) and dynamically resize the canvas.
-Calculation Processing: Send drawn expressions to a backend API for evaluation.
-LaTeX Rendering: Display results as draggable LaTeX expressions using MathJax.
-Calculation History: Persist and view past calculations, with the ability to revisit results.
-Undo/Redo: Navigate through drawing history.
-Responsive UI: Collapsible sidebar with controls and a floating "Run" button.
-Keyboard Shortcuts: Toggle history panel with Ctrl+H.
+**React-based frontend for freehand math expression input, evaluation, and LaTeX rendering.**
 
-Prerequisites
+## 🔧 Key Features
 
-Node.js: Version 18 or higher.
-npm: Version 8 or higher.
-Backend API: A running instance of the calculation API (e.g., frienf-math-notes-be).
+* ✏️ **Canvas Drawing**: Freehand draw mathematical expressions.
+* 🧽 **Eraser Tool** *(planned)*: Remove drawn content via eraser mode.
+* 🔲 **Canvas Manipulation**: Resize and move canvas (Shift + Drag).
+* 📄 **Calculation API Integration**: Send image to backend for expression evaluation.
+* 📄 **MathJax Rendering**: Show LaTeX-rendered results on canvas.
+* 🕘 **Calculation History**: View and restore past results.
+* ↩️ **Undo/Redo**: Navigate through drawing history.
+* 🖥️ **Responsive UI**: Tailwind + Mantine UI with collapsible controls.
+* ⌨️ **Keyboard Shortcuts**: Toggle history with `Ctrl+H`.
 
-Setup
+---
 
-Clone the Repository:
+## 🚀 Getting Started
+
+### 🔗 Prerequisites
+
+* **Node.js** `>= 18`
+* **npm** `>= 8`
+* **Backend**: A running instance of [`frienf-math-notes-be`](https://github.com/your-org/frienf-math-notes-be) or similar.
+
+### 📦 Setup Instructions
+
+```bash
+# Clone repo
 git clone <repository-url>
 cd frienf-math-notes-fe
 
-
-Install Dependencies:
+# Install dependencies
 npm install
 
+# Add environment variables
+echo "VITE_API_URL=http://localhost:8900" > .env
 
-Configure Environment Variables:Create a .env file in the root directory and add the backend API URL:
-VITE_API_URL=http://localhost:8900
-
-Replace http://localhost:8900 with the actual URL of your backend API.
-
-Run the Development Server:
+# Start development server
 npm run dev
+```
 
-The app will be available at http://localhost:5173.
+App runs at: [http://localhost:5173](http://localhost:5173)
 
+---
 
-Scripts
+## 🧰 Available Scripts
 
-npm run dev: Starts the development server with linting.
-npm run build: Builds the app for production.
-npm run lint: Runs ESLint to check code quality.
-npm run preview: Previews the production build locally.
+| Script            | Description                              |
+| ----------------- | ---------------------------------------- |
+| `npm run dev`     | Start dev server with live reload + lint |
+| `npm run build`   | Create production build                  |
+| `npm run preview` | Preview built app locally                |
+| `npm run lint`    | Run ESLint                               |
 
-Usage
-Drawing
+---
 
-Click and drag on the canvas to draw mathematical expressions.
-Use the sidebar to select colors from the swatch palette.
-Toggle the eraser mode (eraser icon, not yet implemented) to erase parts of the canvas.
+## 🧑‍💼 Usage Guide
 
-Canvas Navigation
+### ✏️ Drawing
 
-Hold Shift and drag to move the canvas.
-The canvas automatically extends when dragged beyond its boundaries.
+* Draw with your mouse.
+* Select colors from the swatch palette.
 
-Running Calculations
+### 🧽 Erasing *(To be implemented)*
 
-Click the "Run" button (play icon) in the sidebar or floating button to process the drawn expression.
-Results are rendered as LaTeX and can be dragged around the canvas.
+* Click eraser icon (currently placeholder).
 
-History
+### 🧱 Canvas Navigation
 
-Toggle the history panel with Ctrl+H to view past calculations.
-Click a calculation to re-display its LaTeX result.
-Clear the history using the "Clear History" button.
+* Hold `Shift` + Drag to pan the canvas.
+* Canvas auto-expands as needed.
 
-Undo/Redo
+### ▶️ Running Calculations
 
-Use the undo/redo buttons in the sidebar to navigate drawing history.
+* Click "Run" (floating or sidebar button).
+* LaTeX result appears on canvas, draggable.
 
-Reset
+### 🕘 Viewing History
 
-Click the reset button to clear the canvas and reset the app (preserves calculation history).
+* Press `Ctrl+H` to open/close history.
+* Click a past entry to re-add its result.
+* "Clear History" deletes all past entries.
 
-Backend Requirements
-The app requires a backend API to process drawn expressions. The API should:
+### ↩️ Undo / Redo
 
-Accept POST requests at /calculate with a JSON body containing:
-image: A base64-encoded PNG of the canvas.
-dict_of_vars: An object of variable assignments.
+* Use sidebar buttons to navigate drawing states.
 
+### 🔄 Reset
 
-Return a JSON response with an array of results, each containing:
-expr: The evaluated expression.
-result: The result of the expression.
-assign: A boolean indicating if the result should be stored as a variable.
+* Clear current canvas and drawing state.
+* Keeps calculation history intact.
 
+---
 
+## 🔗 Backend API Requirements
 
-Example API endpoint:
-POST http://localhost:8900/calculate
+**Endpoint:** `POST /calculate`
 
-See the backend documentation for setup details (e.g., frienf-math-notes-be).
-Project Structure
+### Request Payload:
+
+```json
+{
+  "image": "<base64-encoded PNG>",
+  "dict_of_vars": { "x": 2, "y": 5 }
+}
+```
+
+### Response Format:
+
+```json
+[
+  {
+    "expr": "x + y",
+    "result": "7",
+    "assign": false
+  }
+]
+```
+
+---
+
+## 📁 Project Structure
+
+```
 frienf-math-notes-fe/
 ├── public/                # Static assets
 ├── src/
-│   ├── assets/           # Images and other assets
-│   ├── components/       # Reusable UI components
-│   ├── lib/              # Utility functions
-│   ├── screens/          # Page-level components
-│   ├── App.tsx           # Main app component with routing
-│   ├── main.tsx          # Entry point
-│   ├── index.css         # Tailwind CSS styles
-│   └── constants.ts      # App constants (e.g., color swatches)
-├── README.md             # Project documentation
-├── package.json          # Dependencies and scripts
-├── tailwind.config.js    # Tailwind CSS configuration
-├── vite.config.ts        # Vite configuration
-└── tsconfig*.json        # TypeScript configurations
+│   ├── assets/            # Images
+│   ├── components/        # Reusable components
+│   ├── lib/               # Utility logic
+│   ├── screens/           # Top-level pages
+│   ├── App.tsx            # App entry and routes
+│   ├── main.tsx           # Vite entry point
+│   ├── index.css          # Tailwind base styles
+│   └── constants.ts       # Shared constants
+├── tailwind.config.js     # Tailwind config
+├── vite.config.ts         # Vite config
+└── tsconfig.json          # TypeScript config
+```
 
-Technologies
+---
 
-React: Frontend framework.
-TypeScript: Static typing.
-Vite: Build tool and development server.
-Tailwind CSS: Utility-first CSS framework.
-Mantine: UI component library.
-MathJax: LaTeX rendering.
-Axios: HTTP requests.
-React Router: Routing.
-Lucide React: Icons.
-ESLint: Linting.
+## 🛠️ Tech Stack
 
-Contributing
+* **React + TypeScript**
+* **Vite** (fast dev/build tool)
+* **Tailwind CSS** (utility-first CSS)
+* **Mantine** (UI components)
+* **MathJax** (LaTeX rendering)
+* **Axios** (HTTP client)
+* **Lucide React** (icons)
+* **ESLint** (code linting)
+* **React Router** (routing)
 
-Fork the repository.
-Create a feature branch (git checkout -b feature/your-feature).
-Commit changes (git commit -m "Add your feature").
-Push to the branch (git push origin feature/your-feature).
-Open a pull request.
+---
 
-License
-This project is licensed under the MIT License.
-Contact
-For questions or feedback, please open an issue or contact the maintainers.
+## 🤝 Contributing
+
+1. Fork the repository.
+2. Create a feature branch:
+
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+3. Commit your changes:
+
+   ```bash
+   git commit -m "Add your feature"
+   ```
+4. Push and open a PR:
+
+   ```bash
+   git push origin feature/your-feature
+   ```
+
+---
+
+## 🗆 License
+
+Licensed under the [Apache License 2.0](LICENSE).
+
+---
+
+## 📨 Contact
+
+* Open an [issue](https://github.com/your-org/frienf-math-notes-fe/issues) for bugs or feature requests.
+* Reach out to the maintainers for collaboration or feedback.
