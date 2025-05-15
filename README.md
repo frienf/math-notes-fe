@@ -1,5 +1,5 @@
-calc-fe
-calc-fe is a React-based front-end application for drawing mathematical expressions on a canvas, processing them via a backend API, and rendering the results as LaTeX using MathJax. It features a draggable and resizable canvas, color swatches, undo/redo functionality, a calculation history panel, and a responsive UI built with Tailwind CSS and Mantine components.
+Math Notes Frontend
+frienf-math-notes-fe is a React-based frontend application for drawing mathematical expressions on a canvas, processing them via a backend API, and rendering the results as LaTeX using MathJax. It features a draggable and resizable canvas, color swatches, undo/redo functionality, a calculation history panel, and a responsive UI built with Tailwind CSS and Mantine components.
 Features
 
 Canvas Drawing: Draw mathematical expressions freehand with customizable colors.
@@ -16,7 +16,7 @@ Prerequisites
 
 Node.js: Version 18 or higher.
 npm: Version 8 or higher.
-Backend API: A running instance of the calculation API (see Backend Requirements).
+Backend API: A running instance of the calculation API (e.g., frienf-math-notes-be).
 
 Setup
 
@@ -30,9 +30,9 @@ npm install
 
 
 Configure Environment Variables:Create a .env file in the root directory and add the backend API URL:
-VITE_API_URL=http://<your-backend-api-url>
+VITE_API_URL=http://localhost:8900
 
-Replace <your-backend-api-url> with the actual URL of your backend API.
+Replace http://localhost:8900 with the actual URL of your backend API.
 
 Run the Development Server:
 npm run dev
@@ -48,43 +48,35 @@ npm run lint: Runs ESLint to check code quality.
 npm run preview: Previews the production build locally.
 
 Usage
-
-Drawing:
+Drawing
 
 Click and drag on the canvas to draw mathematical expressions.
 Use the sidebar to select colors from the swatch palette.
-Toggle the eraser mode (eraser icon) to erase parts of the canvas by drawing over them.
+Toggle the eraser mode (eraser icon, not yet implemented) to erase parts of the canvas.
 
-
-Canvas Navigation:
+Canvas Navigation
 
 Hold Shift and drag to move the canvas.
 The canvas automatically extends when dragged beyond its boundaries.
 
-
-Running Calculations:
+Running Calculations
 
 Click the "Run" button (play icon) in the sidebar or floating button to process the drawn expression.
 Results are rendered as LaTeX and can be dragged around the canvas.
 
-
-History:
+History
 
 Toggle the history panel with Ctrl+H to view past calculations.
 Click a calculation to re-display its LaTeX result.
 Clear the history using the "Clear History" button.
 
-
-Undo/Redo:
+Undo/Redo
 
 Use the undo/redo buttons in the sidebar to navigate drawing history.
 
-
-Reset:
+Reset
 
 Click the reset button to clear the canvas and reset the app (preserves calculation history).
-
-
 
 Backend Requirements
 The app requires a backend API to process drawn expressions. The API should:
@@ -102,9 +94,9 @@ assign: A boolean indicating if the result should be stored as a variable.
 
 
 Example API endpoint:
-POST http://<your-backend-api-url>/calculate
+POST http://localhost:8900/calculate
 
-See the backend documentation for setup details (not included in this repository).
+See the backend documentation for setup details (e.g., frienf-math-notes-be).
 Project Structure
 frienf-math-notes-fe/
 ├── public/                # Static assets
@@ -125,7 +117,7 @@ frienf-math-notes-fe/
 
 Technologies
 
-React: Front-end framework.
+React: Frontend framework.
 TypeScript: Static typing.
 Vite: Build tool and development server.
 Tailwind CSS: Utility-first CSS framework.
